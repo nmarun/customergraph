@@ -8,8 +8,14 @@
   <ItemGroup>
     <PackageReference Include="graphiql" Version="1.2.0" />
     <PackageReference Include="graphql" Version="2.4.0" />
+    <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="GraphQL.Server.Transports.WebSockets" Version="3.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CustomerGraph.Models\CustomerGraph.Models.csproj" />
   </ItemGroup>
 
 </Project>
