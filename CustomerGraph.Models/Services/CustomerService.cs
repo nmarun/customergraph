@@ -35,12 +35,12 @@ namespace CustomerGraph.Models.Services
             return addresses;
         }
 
-        private string BuildSqlQueryForCustomer(IDictionary<string, Field> subFields, int id)
+        private string BuildSqlQueryForCustomer(IDictionary<string, Field> subFields, int customerNumber)
         {
             StringBuilder queryBuilder = new StringBuilder();
             List<string> projection = new List<string>();
             queryBuilder.Append("select ");
-            string whereClause = string.Format(" where customer.[Id] = {0}", id);
+            string whereClause = string.Format(" where customer.CustomerNumber = {0}", customerNumber);
 
             foreach (KeyValuePair<string, Field> keyValuePair in subFields)
             {
@@ -50,7 +50,7 @@ namespace CustomerGraph.Models.Services
             queryBuilder.Append(" from Customer as customer ");
 
 
-            if (id > -1)
+            if (customerNumber > -1)
             {
                 queryBuilder.Append(whereClause);
             }
