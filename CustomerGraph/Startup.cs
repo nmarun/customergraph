@@ -28,6 +28,9 @@ namespace CustomerGraph
             services.AddScoped<IDocumentExecuter, DocumentExecuter>();
             services.AddSingleton<ICustomerService, CustomerService>();
             services.AddSingleton<CustomerType>();
+            services.AddSingleton<AddressType>();
+            services.AddSingleton<ContactType>();
+            services.AddSingleton<ContactMethodType>();
             services.AddSingleton<CustomersQuery>();
             services.AddSingleton<CustomerSchema>();
             services.AddSingleton<IDependencyResolver>(

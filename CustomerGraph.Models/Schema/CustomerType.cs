@@ -6,6 +6,7 @@ namespace CustomerGraph.Models.Schema
     {
         public CustomerType()
         {
+            Name = "CustomerType";
             Field(f => f.CustomerNumber);
             Field(f => f.BusinessUnitId);
             Field(f => f.Currency);

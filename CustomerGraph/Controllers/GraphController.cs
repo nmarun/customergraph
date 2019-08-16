@@ -9,12 +9,12 @@ namespace CustomerGraph.Controllers
 {
     [Route("controller")]
     [ApiController]
-    public class GraphController : ControllerBase
+    public class GraphQlController : ControllerBase
     {
         private readonly IDocumentExecuter _documentExecuter;
         private readonly ISchema _schema;
 
-        public GraphController(ISchema schema, IDocumentExecuter documentExecuter)
+        public GraphQlController(ISchema schema, IDocumentExecuter documentExecuter)
         {
             _schema = schema;
             _documentExecuter = documentExecuter;
