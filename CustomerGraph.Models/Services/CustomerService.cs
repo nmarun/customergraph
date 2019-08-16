@@ -1,8 +1,7 @@
 ﻿using GraphQL.Language.AST;
 using Microsoft.Extensions.Configuration;
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -70,7 +69,7 @@ namespace CustomerGraph.Models.Services
             queryBuilder.Append("select ");
             string innerJoinForContacts = " inner join Contact as contact on contact.AddressId = address.AddressId";
             string innerJoinForContactMethods = " inner join ContactMethod as contactmethod on contact.ContactId = contactmethod.ContactId";
-            string whereClause = string.Format(" where address = {0}", addressID);
+            string whereClause = string.Format(" where address.AddressId = {0}", addressID);
             bool hasContacts = false;
             bool hasContactMethods = false;
             foreach (KeyValuePair<string, Field> keyValuePair in subFields)
@@ -233,17 +232,6 @@ namespace CustomerGraph.Models.Services
                             contactMethods.Add(contactMethod);
                         }
 
-                        if (contactMethodsForContactId.Any())
-                        {
-                            for (int i = 0; i < contacts.Count; i++)
-                            {
-                                if (contactMethodsForContactId.ContainsKey(contacts[i].ContactId))
-                                {
-                                    contacts[i].ContactMethods = contactMethodsForContactId[contacts[i].ContactId];
-                                }
-                            }
-                        }
-
                         if (contactsForAddressId.Any())
                         {
                             for (int i = 0; i < addresses.Count; i++)
@@ -251,12 +239,20 @@ namespace CustomerGraph.Models.Services
                                 if (contactsForAddressId.ContainsKey(addresses[i].AddressId))
                                 {
                                     addresses[i].Contacts = contactsForAddressId[addresses[i].AddressId];
+                                    for (int j = 0; j < addresses[i].Contacts.Count; j++)
+                                    {
+                                        if (contactMethodsForContactId.ContainsKey(addresses[i].Contacts[j].ContactId)){
+                                            addresses[i].Contacts[j].ContactMethods = contactMethodsForContactId[addresses[i].Contacts[j].ContactId];
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+
+            var json = JsonConvert.SerializeObject(addresses);
 
             return addresses;
         }
