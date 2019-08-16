@@ -3,7 +3,6 @@ using CustomerGraph.Models.Services;
 using GraphiQl;
 using GraphQL;
 using GraphQL.Server;
-using GraphQL.Server.Transports.AspNetCore;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,7 +25,7 @@ namespace CustomerGraph
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
+            services.AddScoped<IDocumentExecuter, DocumentExecuter>();
             services.AddSingleton<ICustomerService, CustomerService>();
             services.AddSingleton<CustomerType>();
             services.AddSingleton<CustomersQuery>();
@@ -57,8 +56,8 @@ namespace CustomerGraph
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseGraphQL<ISchema>("/graphql");
-            app.UseGraphQLWebSockets<CustomerSchema>("/graphql");
+            app.UseGraphQL<ISchema>();
+            app.UseGraphQLWebSockets<CustomerSchema>();
             app.UseWebSockets();
             app.UseGraphiQl();
             app.UseHttpsRedirection();

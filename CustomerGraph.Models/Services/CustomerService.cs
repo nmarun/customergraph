@@ -75,6 +75,7 @@ namespace CustomerGraph.Models.Services
                             customer.SalesChannel = CheckAndReturnValueFromReader(reader, fieldNames, "saleschannel");
                             customer.Currency = CheckAndReturnValueFromReader(reader, fieldNames, "currency");
                             customer.Status = CheckAndReturnValueFromReader(reader, fieldNames, "status");
+                            customers.Add(customer);
                         }
                     }
                 }
