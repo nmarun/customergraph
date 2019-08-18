@@ -54,10 +54,13 @@ namespace CustomerGraph
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseGraphiQl("/graphiql");
-            //app.UseGraphQL<CustomerSchema>("/graph");
-            //app.UseGraphQLWebSockets<CustomerSchema>("/graphql");
-            //app.UseWebSockets();
+            // The UseGraphiQl method thinks graphql endpoint is at the same place as the GraphQL api.
+            // Providing the graphql endpoint explicitly resolves it.
+
+            app.UseGraphiQl("/graphiql", "/graphql");
+            app.UseGraphQL<CustomerSchema>("/graphql");
+            app.UseGraphQLWebSockets<CustomerSchema>("/graphql");
+            app.UseWebSockets();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
