@@ -54,15 +54,10 @@ namespace CustomerGraph
             {
                 app.UseDeveloperExceptionPage();
             }
-            //else
-            //{
-            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            //    app.UseHsts();
-            //}
             app.UseGraphiQl("/graphiql");
-            app.UseGraphQL<ISchema>("/graphql");
-            app.UseGraphQLWebSockets<CustomerSchema>("/graphql");
-            app.UseWebSockets();
+            //app.UseGraphQL<CustomerSchema>("/graph");
+            //app.UseGraphQLWebSockets<CustomerSchema>("/graphql");
+            //app.UseWebSockets();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

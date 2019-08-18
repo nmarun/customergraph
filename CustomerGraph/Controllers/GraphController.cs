@@ -7,9 +7,9 @@ using GraphQL.Server.Transports.AspNetCore.Common;
 
 namespace CustomerGraph.Controllers
 {
-    [Route("controller")]
+    [Route("[controller]")]
     [ApiController]
-    public class GraphController : ControllerBase
+    public class GraphController : Controller
     {
         private readonly IDocumentExecuter _documentExecuter;
         private readonly ISchema _schema;
