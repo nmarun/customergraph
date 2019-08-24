@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace CustomerGraph.Models.Services
 {
@@ -16,14 +17,17 @@ namespace CustomerGraph.Models.Services
     public class CustomerService : ICustomerService
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<CustomerService> _logger;
 
-        public CustomerService(IConfiguration configuration)
+        public CustomerService(IConfiguration configuration, ILogger<CustomerService> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
         public IEnumerable<Customer> GetCustomers(IDictionary<string, Field> subFields, int customerNumber)
         {
             string query = BuildSqlQueryForCustomer(subFields, customerNumber);
+            _logger.LogInformation(query);
             List<Customer> customers = ReadCustomerData(query);
             return customers;
         }
@@ -31,6 +35,7 @@ namespace CustomerGraph.Models.Services
         public IEnumerable<Address> GetAddresses(IDictionary<string, Field> subFields, int addressID)
         {
             string query = BuildSqlQueryForAddress(subFields, addressID);
+            _logger.LogInformation(query);
             List<Address> addresses = ReadAddressData(query);
             return addresses;
         }
