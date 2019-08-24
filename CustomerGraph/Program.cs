@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
+using Serilog.Formatting.Compact;
 
 namespace CustomerGraph
 {
@@ -11,7 +12,7 @@ namespace CustomerGraph
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
-                .WriteTo.File("logs\\myapp.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File(new CompactJsonFormatter(), "logs\\graph.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
             try
