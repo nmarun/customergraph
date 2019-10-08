@@ -11,7 +11,7 @@ namespace Consumer
     {
         static async Task Main(string[] args)
         {
-            var query = @"query { customers { customerNumber salesChannel } }";
+            var query = @"query { customers { customerNumber businessUnitId salesChannel } }";
             var request = new GraphQLRequest()
             {
                 Query = query
